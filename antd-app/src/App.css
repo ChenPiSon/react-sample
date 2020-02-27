@@ -1,22 +1,6 @@
-/* For demo */
 
-.ant-carousel .slick-slide {
-  text-align: center;
-  height: fit-content;
-  width: fit-content;
-  height: 160px;
-  line-height: 160px;
-  background: #E14B30;
-  overflow: hidden;
-}
-
-body {
-  height: 100%;
-  width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.layout-header-primary {
+    display: flex;
+    background-color: #7546C9 ;
 }
 
