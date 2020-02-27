@@ -1,30 +1,33 @@
 import React from 'react';
-import { Button, Layout, Carousel } from 'antd';
+import {Layout} from 'antd';
 import './App.css';
+import Main from './components/main/main.js'
+import { Route, Redirect } from 'react-router'
+import { withRouter,Switch } from "react-router-dom";
 
-function onChange(a, b, c) {
-  console.log(a, b, c);
+const { Header,Footer } = Layout;
+
+class App extends React.Component {
+  render() {
+      return (
+        <Layout className='vstretch'>
+        <Header className="layout-header-primary">
+            <div className="logo" >
+                <span className='title' style={{ fontSize: 24, color: '#FFF' }} >Antd Study</span>
+            </div>
+        </Header>
+        <div className='body'>
+            <Switch> 
+                <Redirect exact  path='/main' to='/main/home'/>
+                <Route path="/main/home" component={Main}/>
+            </Switch>
+        </div>
+        <Footer className='htcenter' style={{textAlign:"center"}}>
+            XXX技术股份有限公司 ©2020 版权所有
+        </Footer>
+    </Layout>
+      );
+  }
 }
 
-function App() {
-  return (
-    <div className="App">
-      <Carousel afterChange={onChange}>
-        <div>
-          <Button type="primary">颜色显示正常</Button>
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-      </Carousel>,
-    </div>
-  );
-}
-
-export default App;
+export default withRouter(App);
