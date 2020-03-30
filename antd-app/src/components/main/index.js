@@ -1,11 +1,12 @@
 import { Menu, Icon, Layout, Slider, Text } from 'antd';
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import { Switch, Link } from 'react-router-dom';
+import { Redirect, Route } from 'react-router';
 import Idol from '../idol/index';
 
-
 const { SubMenu } = Menu;
+const { Sider, Content } = Layout;
+
 const navigationList = [
     {
         id: 0,
@@ -15,13 +16,13 @@ const navigationList = [
             {
                 id: 1001,
                 navName: '我的关注',
-                navKey: 'argument',
+                navKey: 'follow',
                 navComponent: Idol
             },
             {
                 id: 1002,
                 navName: '我的动态',
-                navKey: 'info-manage',
+                navKey: 'state',
                 navComponent: Idol
             },
         ]
@@ -42,8 +43,8 @@ export default class Main extends React.Component {
         return navigationList.map(item => {
             if (!item.children || item.children.length === 0) {
                 return <Menu.Item key={item.navKey ? item.navKey : item.id} name={item.navName}  >
-                    {/* <Link key={item.navKey} to={`/main/home/${item.navKey}`}>
-                    </Link> */}
+                    <Link key={item.navKey} to={`/main/${item.navKey}`}>
+                    </Link>
                 </Menu.Item>
             }
             const key = `sub${item.id}`
@@ -51,9 +52,9 @@ export default class Main extends React.Component {
                 {
                     item.children.map(child =>
                         <Menu.Item key={child.navKey ? child.navKey : child.id} name={child.navName}>
-                            {/* <Link key={child.navKey} to={`/main/home/${item.navKey}/${child.navKey}`}>
+                            <Link key={child.navKey} to={`/main/${item.navKey}/${child.navKey}`}>
                                 {child.navName}
-                            </Link> */}
+                            </Link>
                             {child.navName}
                         </Menu.Item>
                     )
@@ -62,6 +63,19 @@ export default class Main extends React.Component {
         })
     }
 
+    renderRouter = () => {
+        const { match } = this.props
+        return navigationList.map(item => {
+            if (!item.children || item.children.length === 0) {
+                return <Route key={item.navKey} path={`${match.url}/${item.navKey}`} component={item.navComponent}></Route>
+            }
+            return (
+                item.children.map(child =>
+                    <Route key={child.navKey} path={`${match.url}/${item.navKey}/${child.navKey}`} component={child.navComponent}></Route>
+                )
+            )
+        })
+    }
 
     render() {
         return (
@@ -71,9 +85,20 @@ export default class Main extends React.Component {
                     style={{ height: '100%', padding: '24px 0',width:'20%' }}>
                     {this.renderMenu()}
                 </Menu>
+                <Content style={{ height: '100%', marginLeft: 20 }}>
+                    <div style={{ backgroundColor: '#F6F6F6', height: '100%', }}>
+                        <Switch style={{ padding: '24px 0', backgroundColor: '#F6F6F6' }}>
+                            {this.renderRouter()}
+                        </Switch>
+                    </div>
+                </Content>
+
             </Layout>
         );
     }
+
+
+
 }
 
 

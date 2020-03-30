@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
 
-export default class Main extends React.Component {
+class Idol extends React.Component {
 
     render() {
+        // const { path } = this.props.match;
         return (
-           <div></div>
-        );
+          <div id='pay'   style={{ height: '100%',backgroundColor:'#CBAC2D' }}>
+         
+          </div>
+        )
+      }
     }
-}
+export default Idol;
